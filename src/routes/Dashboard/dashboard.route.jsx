@@ -8,38 +8,55 @@ import { IoMdRefresh } from "react-icons/io";
 import Dropdown from "../../components/Dropdown/dropdown.component";
 import ProgressItem from "../../components/ProgressItem/progressItem.component";
 
-import Slack from "../../assets/slack.png";
-import SlackPB from "../../assets/slack-progressbar.png";
-import Teams from "../../assets/msft-teams.png";
-import TeamsPB from "../../assets/msft-teams-progressbar.png";
-import AWS from "../../assets/aws-cloud.png";
-import AWSPB from "../../assets/aws-cloud.png";
-import Google from "../../assets/google-cloud.png";
-import GooglePB from "../../assets/google-progressbar.png";
-import Oracle from "../../assets/oracle.png";
-import OraclePB from "../../assets/oracle-progressbar.png";
-import GMail from "../../assets/google-gmail.png";
-import GMailPB from "../../assets/gmail-progressbar.png";
 
 
 const Dashboard = () => {
 
     const [ displayMenuItem , setDisplayMenuItem ] = useState(false);
-    console.log("dashboard :::" , displayMenuItem);
+    // console.log("dashboard :::" , displayMenuItem);
 
-    const queriesBySource = [
-      {id:1 , source:"Slack" , query:"171k" , icon:<Slack /> , progressBar:<SlackPB />},
-      {id:2 , source:"Microsoft Teams" , query:"21k" , icon:<Teams /> , progressBar:<TeamsPB />},
-      {id:3 , source:"AWS Cloud" , query:"7.8k" , icon:<AWS /> , progressBar:<AWSPB />},
-      {id:4 , source:"Google Cloud" , query:"2.1k" , icon:<Google /> , progressBar:<GooglePB />},
-      {id:5 , source:"Oracle" , query:"987", icon:<Oracle /> , progressBar:<OraclePB />},
-      {id:6 , source:"G Suite Gmail" , query:"809" , icon:<GMail /> , progressBar:<GMailPB />},
-    ];
+    const [onReloadChart1, setOnReloadChart1] = useState(false);
+    const [onReloadChart2, setOnReloadChart2] = useState(false);
+    const [onReloadChart3, setOnReloadChart3] = useState(false);
+
+    const [onReloadAreaChart1 , setOnReloadAreaChart1] = useState(false);
+    const [onReloadAreaChart2 , setOnReloadAreaChart2] = useState(false);
+
+    const [onReloadDashboard , setOnReloadDashboard] = useState(false);
+
 
 
     const handleDisplayMenu = (val) => {
     //    console.log("val" , val);
        setDisplayMenuItem(val);
+    }
+
+    const handleResetChart1 = (val) => {
+      setOnReloadChart1(val);
+    }
+
+    const handleResetChart2 = (val) => {
+      setOnReloadChart2(val);
+    }
+
+    const handleResetChart3 = (val) => {
+      setOnReloadChart3(val);
+    }
+
+    const handleResetAreaChart1 = (val) => {
+      setOnReloadAreaChart1(val);
+    }
+
+    const handleResetAreaChart2 = (val) => {
+      setOnReloadAreaChart2(val);
+    }
+
+    const handleAnalyticsDashboard = () => {
+      setOnReloadDashboard(true);
+    }
+
+    const handleResetDashboard = (val) => {
+      setOnReloadDashboard(val);
     }
 
     return(
@@ -56,36 +73,36 @@ const Dashboard = () => {
                  <p className="text-xl font-medium">Analytics</p>
                  <button className="border rounded rounded-[3px] p-0 flex items-center px-3 gap-x-1">
                     <IoMdRefresh />
-                    <p className="p-0 m-0 font-medium text-[13px]">Refresh Dashboard</p>
+                    <p className="p-0 m-0 font-medium text-[13px]" onClick={handleAnalyticsDashboard}>Refresh Dashboard</p>
                  </button>
                </div>
                <div className="flex flex-col gap-y-3">
                   <Dropdown />
                   {/* container 1 */}
                   <div className="flex gap-x-3">
-                    <Card width="w-[20%]" title="Users">
+                    <Card width="w-[20%]" title="Users" onClick={() => { console.log("you reloaded"); }}>
                       <div className="flex flex-col gap-y-[15px] mt-2">
                          <StatsCard title="Total Users" number={577} border="border-blue-300" />
                          <StatsCard title="Active" number={543} border="border-blue-300" />
                          <StatsCard title="Inactive" number={34} border="border-blue-300" />
                       </div>
                     </Card>
-                    <Card width="w-[80%]" title="Number of Unique Logins">
+                    <Card width="w-[80%]" title="Number of Unique Logins" onClick={() => { setOnReloadChart1(true); }}>
                         <div className="flex flex-col gap-y-[18px] mt-1">
                           <StatsCard number={374} />
-                          <BarChartExample color="rgba(28, 168, 221, 1)" ticks={[0,4,8]} />
+                          <BarChartExample color="rgba(28, 168, 221, 1)" onReload={onReloadChart1} onReset={handleResetChart1} onReloadDashboard_={onReloadDashboard} onResetDashboard_={handleResetDashboard} />
                         </div>
                     </Card>
                   </div>
                    {/* container 2 */}
                   <div className="flex gap-x-3">
-                    <Card width="w-[50%]" title="Queries Executed in the workflow">
+                    <Card width="w-[50%]" title="Queries Executed in the workflow" onClick={() => { setOnReloadChart2(true); }}>
                       <div className="flex flex-col gap-y-[18px] mt-1">
                         <StatsCard number={"371.8k"} />
-                        <BarChartExample color="#22c55e" />
+                        <BarChartExample color="#22c55e" onReload={onReloadChart2} onReset={handleResetChart2} onReloadDashboard_={onReloadDashboard} onResetDashboard_={handleResetDashboard} />
                       </div>
                     </Card>
-                    <Card width="w-[50%]" title="Queries by Source">
+                    <Card width="w-[50%]" title="Queries by Source" onClick={() => { console.log("you reloaded"); }}>
                       <div className="flex flex-col gap-y-[8px] mt-3">
                         <div className="flex justify-between text-[12px] font-medium text-gray-500 border-b pb-1 border-gray-200">
                           <p>Source</p>
@@ -97,25 +114,25 @@ const Dashboard = () => {
                   </div>
                    {/* container 3 */}
                   <div>
-                    <Card width="w-[100%]" title="Avg. Response Time - Workflow">
+                    <Card width="w-[100%]" title="Avg. Response Time - Workflow" onClick={() => { setOnReloadAreaChart1(true); }}>
                       <div className="flex flex-col gap-y-[16px] mt-1">
                         <StatsCard number={"10.5s"} />
-                        <AreaChartt type="catmullRom" stroke="#377637" fill="#b9edc4" />
+                        <AreaChartt type="catmullRom" stroke="#377637" fill="#b9edc4" onReload={onReloadAreaChart1} onReset={handleResetAreaChart1} onReloadDashboard_={onReloadDashboard} onResetDashboard_={handleResetDashboard}/>
                       </div>
                     </Card>
                   </div>
                    {/* container 4 */}
                   <div  className="flex gap-x-3">
-                    <Card width="w-[50%]" title="Firewall API Calls">
+                    <Card width="w-[50%]" title="Firewall API Calls" onClick={() => { setOnReloadChart3(true); }}>
                       <div className="flex flex-col gap-y-[18px] mt-1">
                         <StatsCard number={"12.5k"} />
-                        <BarChartExample color="#22c55e" />
+                        <BarChartExample color="#22c55e"  onReload={onReloadChart3} onReset={handleResetChart3} onReloadDashboard_={onReloadDashboard} onResetDashboard_={handleResetDashboard} />
                       </div>
                     </Card>
-                    <Card width="w-[50%]" title="Avg. Response Time - Firewall">
+                    <Card width="w-[50%]" title="Avg. Response Time - Firewall" onClick={() => { setOnReloadAreaChart2(true); }}>
                       <div className="flex flex-col gap-y-[18px] mt-1">
                         <StatsCard number={"2.47s"} />
-                        <AreaChartt type="monotone" stroke="rgba(141, 211, 238, 1)" fill="rgb(165, 213, 233)" />
+                        <AreaChartt type="monotone" stroke="rgba(141, 211, 238, 1)" fill="rgb(165, 213, 233)" onReload={onReloadAreaChart2} onReset={handleResetAreaChart2} onReloadDashboard_={onReloadDashboard} onResetDashboard_={handleResetDashboard} />
                       </div>
                     </Card>
                   </div>
