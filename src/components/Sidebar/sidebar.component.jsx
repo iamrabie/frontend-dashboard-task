@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FaLongArrowAltRight } from "react-icons/fa";
+
 
 import Logo from "../../assets/logo.png";
 import AnalyticsIcon from "../../assets/analytics-icon.png";
@@ -42,15 +44,15 @@ const Sidebar = ({onClick}) => {
           </div>
         </li>
       </ol>
-      <p
+      <div
         onClick={() => {
           setDisplayItemName(!displayItemName);
           onClick(!displayItemName);
         }}
-        className="pt-5"
+        className="absolute top-14 left-4 text-green-600 text-3xl cursor-pointer font-bold rounded-full"
       >
-        click to expand
-      </p>
+        <FaLongArrowAltRight />
+      </div>
     </div>
   );
 };
