@@ -1,15 +1,16 @@
 import Slack from "../../assets/slack.png";
-import SlackPB from "../../assets/slack-progressbar.png";
-import Teams from "../../assets/msft-teams.png";
-import TeamsPB from "../../assets/msft-teams-progressbar.png";
-import AWS from "../../assets/aws-cloud.png";
-import AWSPB from "../../assets/aws-progressbar.png";
-import Google from "../../assets/google-cloud.png";
-import GooglePB from "../../assets/google-progressbar.png";
 import Oracle from "../../assets/oracle.png";
-import OraclePB from "../../assets/oracle-progressbar.png";
+import AWS from "../../assets/aws-cloud.png";
+import Teams from "../../assets/msft-teams.png";
 import GMail from "../../assets/google-gmail.png";
+import Google from "../../assets/google-cloud.png";
+import AWSPB from "../../assets/aws-progressbar.png";
 import GMailPB from "../../assets/gmail-progressbar.png";
+import SlackPB from "../../assets/slack-progressbar.png";
+import OraclePB from "../../assets/oracle-progressbar.png";
+import GooglePB from "../../assets/google-progressbar.png";
+import TeamsPB from "../../assets/msft-teams-progressbar.png";
+
 
 const ProgressItem = () => {
 

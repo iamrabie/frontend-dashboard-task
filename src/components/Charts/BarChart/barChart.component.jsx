@@ -9,7 +9,14 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function CommentsChart({ color , onReload , onReset , onReloadDashboard_ , onResetDashboard_ }) {
+export default function CommentsChart({
+  color,
+  onReload,
+  onReset,
+  onReloadDashboard_,
+  onResetDashboard_,
+}) {
+  
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -17,19 +24,18 @@ export default function CommentsChart({ color , onReload , onReset , onReloadDas
   }, []);
 
   useEffect(() => {
-    
     if (onReload) {
       handleReload();
       onReset(false);
     }
-  } , [onReload]);
+  }, [onReload]);
 
   useEffect(() => {
-    if(onReloadDashboard_) {
+    if (onReloadDashboard_) {
       handleReload();
       onResetDashboard_(false);
     }
-  } , [onReloadDashboard_]);
+  }, [onReloadDashboard_]);
 
   const handleFetchData = () => {
     fetch("https://dummyjson.com/comments")
@@ -47,7 +53,7 @@ export default function CommentsChart({ color , onReload , onReset , onReloadDas
   };
 
   const handleReload = () => {
-      fetch("https://dummyjson.com/comments")
+    fetch("https://dummyjson.com/comments")
       .then((res) => res.json())
       .then((res) => {
         // Add random numbers to likes for visual change
@@ -58,7 +64,7 @@ export default function CommentsChart({ color , onReload , onReset , onReloadDas
         setData(randomizedData);
       })
       .catch((err) => console.log(err));
-  }
+  };
 
   return (
     <div style={{ backgroundColor: "white" }}>
